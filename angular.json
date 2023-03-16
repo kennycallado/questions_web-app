@@ -90,6 +90,7 @@
               "browserTarget": "questions_app:build:production"
             },
             "development": {
+              "port": 8000,
               "browserTarget": "questions_app:build:development"
             }
           },
