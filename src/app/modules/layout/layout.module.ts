@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { NavigationComponent } from './components/navigation/navigation.component';
 
@@ -10,6 +11,7 @@ import { LayoutComponent } from './layout.component';
     NavigationComponent
   ],
   imports: [
+    RouterModule,
     CommonModule
   ],
   exports: [
