@@ -14,13 +14,17 @@ import { StorageService } from './storage.service';
 })
 export class AuthService {
 
+  status = new Observable<boolean>();
+
   constructor(private http: HttpClient, private storageSvc: StorageService) { }
 
   isAuthenticated(): boolean {
     let token = this.storageSvc.getAccessToken();
     if (token) {
       let payload: JwtPayload = jwt_decode(token);
-      return payload.exp! > Date.now() / 1000;
+      let result = payload.exp! > Date.now() / 1000;
+
+      return result;
     }
 
     return false;

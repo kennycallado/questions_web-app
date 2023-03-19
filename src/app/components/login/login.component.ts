@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { AuthUser } from 'src/app/providers/auth-user';
 import { AuthService } from 'src/app/services/auth.service';
 import { StorageService } from 'src/app/services/storage.service';
 
@@ -17,7 +18,7 @@ export class LoginComponent {
 
   submit(user_token: HTMLInputElement) {
     this.authSvc.login(user_token.value).subscribe(
-      (auth_user) => { 
+      (auth_user: AuthUser) => { 
         this.storageSvc.setUserData(auth_user.user);
         this.storageSvc.setAccessToken(auth_user.access_token);
 

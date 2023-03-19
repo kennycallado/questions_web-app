@@ -28,8 +28,8 @@
         <li class="nav-items mx-auto me-5">
           <a class="nav-link" [routerLink]="['about']">About</a>
         </li>
-        <li class="nav-item ms-auto me-5">
-          <a class="nav-link disabled">Logout</a>
+        <li *ngIf="isAuth" class="nav-item ms-auto me-5">
+          <a class="nav-link" (click)="logout()">Logout</a>
         </li>
       </ul>
 
