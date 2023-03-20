@@ -9,7 +9,7 @@ import { LoginComponent } from './components/login/login.component';
 
 const routes: Routes = [
   // { path: 'login', loadChildren: () => import('./modules/login/login.module').then(m => m.LoginModule) },
-  { path: 'about', component: AboutComponent, canActivate: [AuthGuardService] },
+  { path: 'about', component: AboutComponent },
   { path: 'home', component: HomeComponent, canActivate: [AuthGuardService] },
   { path: 'login', component: LoginComponent },
   { path: 'slider',
