@@ -1,13 +1,20 @@
-import { Component, Input } from '@angular/core';
-import { Router, ActivatedRoute, ParamMap } from '@angular/router';
+import {AfterViewInit, Component, Input, CUSTOM_ELEMENTS_SCHEMA, ViewEncapsulation} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import { ActivatedRoute, ParamMap } from '@angular/router';
 import { Slide, slides } from '../../slides';
+
+import { register } from 'swiper/element/bundle'
 
 @Component({
   selector: 'app-slide',
   templateUrl: './slide.component.html',
-  styleUrls: ['./slide.component.scss']
+  standalone: true,
+  encapsulation: ViewEncapsulation.None,
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  styleUrls: ['./slide.component.scss'],
+  imports: [CommonModule]
 })
-export class SlideComponent {
+export class SlideComponent implements AfterViewInit {
 
   @Input() slides: Slide[] = [];
 
@@ -50,6 +57,9 @@ export class SlideComponent {
      this.timeStamp = (new Date()).getTime();
   }
 
+  ngAfterViewInit() {
+    register();
+  }
 
   ngOnInit() {
     this.route.paramMap.subscribe((params: ParamMap) => {

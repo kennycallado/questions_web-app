@@ -1,3 +1,52 @@
+<swiper-container class="overflow-visible"
+  loop="false"
+  slides-perView="1"
+  space-between="100"
+  >
+  <swiper-slide *ngFor="let slide of slides">
+
+    <div class="d-flex align-items-center position-relative my-md-0 my-4">
+      <div class="card mx-auto mb-4" style="margin-top: 100px;">
+
+        <div class="img-up-gradient d-md-none">
+          <img src="{{ getLinkPicture() }}">
+        </div>
+
+          <div class="card-body">
+            <div class="row">
+
+              <div class="d-none d-md-block col-3">
+                <div class="img-left-gradient">
+                  <img src="{{ getLinkPicture() }}">
+                </div>
+              </div>
+
+              <div class="col mx-md-4 d-md-flex flex-md-column justify-content-center">
+                <h5 class="card-title fs-3 text-primary text-center"><u>{{ slide!.title }}</u></h5>
+                <p class="card-text mt-3" style="text-align: justify;">{{ slide!.description }}</p>
+                <p class="card-text" style="text-align: justify;">
+                  Some quick example text to build on the card title and make up the bulk of the card's content.
+                </p>
+              </div>
+            </div>
+          </div>
+
+        <div class="card-footer">
+          <div class="d-flex justify-content-between justify-content-md-evenly">
+            <a class="d-none d-md-block btn btn-primary" (click)="prev()">⭠ Prev</a>
+            <a href="#" class="mx-auto mx-md-0 btn btn-primary disabled">Send <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-send" viewBox="0 0 16 16">
+                <path d="M15.854.146a.5.5 0 0 1 .11.54l-5.819 14.547a.75.75 0 0 1-1.329.124l-3.178-4.995L.643 7.184a.75.75 0 0 1 .124-1.33L15.314.037a.5.5 0 0 1 .54.11ZM6.636 10.07l2.761 4.338L14.13 2.576 6.636 10.07Zm6.787-8.201L1.591 6.602l4.339 2.76 7.494-7.493Z"/>
+              </svg></a>
+            <a class="d-none d-md-block btn btn-primary" (click)="next()">Next ⭢</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </swiper-slide>
+</swiper-container>
+<!--
 <div class="d-flex align-items-center my-md-0 my-4">
   <div class="card position-relative mx-auto mb-4" style="margin-top: 100px;">
 
@@ -17,19 +66,7 @@
           <div class="col mx-md-4 d-md-flex flex-md-column justify-content-center">
             <h5 class="card-title fs-3 text-primary text-center"><u>{{ slide!.title }}</u></h5>
             <p class="card-text mt-3" style="text-align: justify;">{{ slide!.description }}</p>
-<!--
-            <p class="card-text"
-              style="text-align: justify;">
-              Some quick example text to build on the card title and make up the bulk of the card's content.
-            </p>
-      
-            <p class="card-text"
-              style="text-align: justify;">
-              Some quick example text to build on the card title and make up the bulk of the card's content.
-            </p>
--->
-            <p class="card-text"
-              style="text-align: justify;">
+            <p class="card-text" style="text-align: justify;">
               Some quick example text to build on the card title and make up the bulk of the card's content.
             </p>
           </div>
@@ -48,3 +85,4 @@
 
   </div>
 </div>
+-->
