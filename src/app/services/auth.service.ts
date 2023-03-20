@@ -16,7 +16,9 @@ export class AuthService {
 
   status = new Observable<boolean>();
 
-  constructor(private http: HttpClient, private storageSvc: StorageService) { }
+  constructor(
+    private http: HttpClient,
+    private storageSvc: StorageService) { }
 
   isAuthenticated(): boolean {
     let token = this.storageSvc.getAccessToken();
@@ -34,7 +36,12 @@ export class AuthService {
     return this.http.post<AuthUser>(AUTH_API + '/login', token);
   }
 
-  logout(): Observable<any> {
-    return this.http.get(AUTH_API + '/logout', { withCredentials: true });
+  logout(): void {
+    this.http.get(AUTH_API + '/logout', { withCredentials: true }).subscribe();
+
+    this.storageSvc.removeUserData();
+    this.storageSvc.removeAccessToken();
+
+    // this.router.navigate(['/login']);
   }
 }

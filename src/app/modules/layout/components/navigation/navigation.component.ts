@@ -17,11 +17,9 @@ export class NavigationComponent {
     private authSvc: AuthService) { }
 
   logout(): void {
-    this.authSvc.logout().subscribe(result => {
-      console.log(result);
-    });
-
     this.authSvc.logout();
     this.router.navigate(['/login']);
+
+    return ;
   }
 }
