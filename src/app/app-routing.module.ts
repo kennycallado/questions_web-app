@@ -12,6 +12,11 @@ const routes: Routes = [
   { path: 'about', component: AboutComponent, canActivate: [AuthGuardService] },
   { path: 'home', component: HomeComponent, canActivate: [AuthGuardService] },
   { path: 'login', component: LoginComponent },
+  { path: 'slider',
+    loadChildren: () => import('./modules/slider/slider.module').then(m => m.SliderModule),
+    canActivate: [AuthGuardService]
+  },
+  { path: '**', redirectTo: '/home'},
   { path: '', redirectTo: '/home', pathMatch: 'full' },
 ];
 
