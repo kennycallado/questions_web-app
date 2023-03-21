@@ -26,6 +26,16 @@ export class AuthService {
       let payload: JwtPayload = jwt_decode(token);
       let result = payload.exp! > Date.now() / 1000;
 
+      if (!result) {
+        this.autoLogin().subscribe(
+          (auth_user: AuthUser) => {
+            this.storageSvc.setUserData(auth_user.user);
+            this.storageSvc.setAccessToken(auth_user.access_token);
+
+            result = true;
+          });
+      }
+
       return result;
     }
 
@@ -33,7 +43,11 @@ export class AuthService {
   }
 
   login(token: string): Observable<AuthUser> {
-    return this.http.post<AuthUser>(AUTH_API + '/login', token);
+    return this.http.post<AuthUser>(AUTH_API + '/login', token, { withCredentials: true });
+  }
+
+  autoLogin(): Observable<AuthUser> {
+    return this.http.get<AuthUser>(AUTH_API + '/', { withCredentials: true });
   }
 
   logout(): void {
