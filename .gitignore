@@ -6,6 +6,10 @@
 /out-tsc
 /bazel-out
 
+# capacitor
+android/
+google-services.json
+
 # Node
 /node_modules
 npm-debug.log
