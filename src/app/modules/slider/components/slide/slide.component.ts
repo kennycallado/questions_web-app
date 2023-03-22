@@ -46,15 +46,15 @@ export class SlideComponent implements AfterViewInit {
   }
 
   getLinkPicture() {
-     if(this.timeStamp) {
-        return this.linkPicture + '?' + this.timeStamp;
-     }
-     return this.linkPicture;
+    if(this.timeStamp) {
+      return this.linkPicture + '?' + this.timeStamp;
+    }
+    return this.linkPicture;
   }
 
   setLinkPicture(url: string) {
-     this.linkPicture = url;
-     this.timeStamp = (new Date()).getTime();
+    this.linkPicture = url;
+    this.timeStamp = (new Date()).getTime();
   }
 
   ngAfterViewInit() {
