@@ -1,10 +1,15 @@
 import { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
-  appId: 'dev.kenycallado.questions-app',
+  appId: 'dev.kennycallado',
   appName: 'questions-app',
   webDir: 'dist',
-  bundledWebRuntime: false
+  bundledWebRuntime: false,
+  plugins: {
+    PushNotifications: {
+      presentationOptions: ["badge", "sound", "alert"]
+    }
+  }
 };
 
 export default config;
