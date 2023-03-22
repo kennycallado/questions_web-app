@@ -46,10 +46,11 @@ export class SlideComponent implements AfterViewInit {
   }
 
   getLinkPicture() {
-    if(this.timeStamp) {
-      return this.linkPicture + '?' + this.timeStamp;
+    if (this.slide!.image) {
+      return this.slide!.image;
     }
-    return this.linkPicture;
+
+    return this.linkPicture + '?' + this.timeStamp;
   }
 
   setLinkPicture(url: string) {
@@ -63,10 +64,11 @@ export class SlideComponent implements AfterViewInit {
 
   ngOnInit() {
     this.route.paramMap.subscribe((params: ParamMap) => {
-      let id = parseInt(params.get('id')!);
+      // fetch the slides_group from server
+      // let id = parseInt(params.get('id')!);
 
       this.slides = slides;
-      this.slide = this.slides.find(slide => slide.id === id);
+      this.slide = this.slides.find(slide => slide.id === 1);
     });
   }
 }

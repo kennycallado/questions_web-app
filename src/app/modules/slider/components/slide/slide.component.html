@@ -5,7 +5,8 @@
   navigation="true"
   navigation-next-el=".next-slide"
   navigation-prev-el=".prev-slide"
-  (slidechange)="setLinkPicture(linkPicture)"
+  (slidenexttransitionstart)="next()"
+  (slideprevtransitionstart)="prev()"
   >
   <swiper-slide *ngFor="let slide of slides">
 
