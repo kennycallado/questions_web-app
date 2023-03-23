@@ -51,10 +51,16 @@ export class AuthService {
   }
 
   logout(): void {
+    // call logout api to invalidate token
+    // Also call to remove the fcm token from the server
     this.http.get(AUTH_API + '/logout', { withCredentials: true }).subscribe();
 
     this.storageSvc.removeUserData();
     this.storageSvc.removeAccessToken();
+
+    if (this.storageSvc.get('token') !== null) {
+      this.storageSvc.remove('token');
+    }
 
     // this.router.navigate(['/login']);
   }
