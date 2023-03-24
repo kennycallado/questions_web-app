@@ -1,9 +1,13 @@
+import { register } from 'swiper/element/bundle'
+
 import {AfterViewInit, Component, Input, CUSTOM_ELEMENTS_SCHEMA, ViewEncapsulation} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import { ActivatedRoute, ParamMap } from '@angular/router';
-import { Slide, slides } from '../../slides';
 
-import { register } from 'swiper/element/bundle'
+import { DEFAULT_PICTURE } from 'src/app/providers/constants';
+
+import { Slide, slidesList } from '../../slides';
+import { InputComponent } from '../input/input.component';
 
 @Component({
   selector: 'app-slide',
@@ -12,18 +16,49 @@ import { register } from 'swiper/element/bundle'
   encapsulation: ViewEncapsulation.None,
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   styleUrls: ['./slide.component.scss'],
-  imports: [CommonModule]
+  imports: [CommonModule, InputComponent],
 })
 export class SlideComponent implements AfterViewInit {
 
   @Input() slides: Slide[] = [];
 
   slide: Slide | undefined;
-  timeStamp: number = Date.now();
+  answer?: string;
 
-  linkPicture: string = 'https://picsum.photos/200/300';
+  timeStamp: number = Date.now();
+  DEFAULT_PICTURE: string = DEFAULT_PICTURE;
 
   constructor(private route: ActivatedRoute) { }
+
+  submit() {
+    if (!this.answer) {
+      alert('Debes introducir un valor para poder continuar');
+    }
+    // Save to continue
+  }
+
+  changeAnswer(answer: string) {
+    switch (answer) {
+      case '0':
+        this.answer = 'Nada';
+        break;
+      case '1':
+        this.answer = 'Poco';
+        break;
+      case '2':
+        this.answer = 'Medio';
+        break;
+      case '3':
+        this.answer = 'Bastante';
+        break;
+      case '4':
+        this.answer = 'Mucho';
+        break;
+      case '5':
+        this.answer = 'Totalmente';
+        break;
+    }
+  }
 
   next() {
     let index = this.slides.indexOf(this.slide!);
@@ -32,7 +67,7 @@ export class SlideComponent implements AfterViewInit {
       this.slide = this.slides[index + 1];
     }
 
-    this.setLinkPicture(this.linkPicture);
+    this.setLinkPicture(this.DEFAULT_PICTURE);
   }
 
   prev() {
@@ -42,7 +77,7 @@ export class SlideComponent implements AfterViewInit {
       this.slide = this.slides[index - 1];
     }
 
-    this.setLinkPicture(this.linkPicture);
+    this.setLinkPicture(this.DEFAULT_PICTURE);
   }
 
   getLinkPicture() {
@@ -50,11 +85,11 @@ export class SlideComponent implements AfterViewInit {
       return this.slide!.image;
     }
 
-    return this.linkPicture + '?' + this.timeStamp;
+    return this.DEFAULT_PICTURE + '?' + this.timeStamp;
   }
 
   setLinkPicture(url: string) {
-    this.linkPicture = url;
+    this.DEFAULT_PICTURE = url;
     this.timeStamp = (new Date()).getTime();
   }
 
@@ -64,11 +99,10 @@ export class SlideComponent implements AfterViewInit {
 
   ngOnInit() {
     this.route.paramMap.subscribe((params: ParamMap) => {
-      // fetch the slides_group from server
-      // let id = parseInt(params.get('id')!);
+      let id = parseInt(params.get('id')!);
 
-      this.slides = slides;
-      this.slide = this.slides.find(slide => slide.id === 1);
+      this.slides = slidesList.slidesGroup.find(sg => sg.id === id)!.slides;
+      this.slide = this.slides[0];
     });
   }
 }

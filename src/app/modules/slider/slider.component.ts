@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 
-import { slides } from './slides'
+import { slidesList } from './slides'
 
 @Component({
   selector: 'app-slider',
@@ -9,7 +9,7 @@ import { slides } from './slides'
 })
 export class SliderComponent {
 
-  slides = slides;
+  slidesList = slidesList;
 
   constructor() { }
 }

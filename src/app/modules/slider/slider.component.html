@@ -1,10 +1,12 @@
 <div class="card mx-auto mt-4" style="width: 18rem;">
   <div class="card-header text-center text-primary"><h3>List</h3></div>
+
   <ul class="list-group list-group-flush">
-    <li class="list-group-item" *ngFor="let slide of slides">
+    <li class="list-group-item" *ngFor="let slide of slidesList.slidesGroup">
       <a class="nav-link" [routerLink]="['/slider', slide.id]">
-        {{slide.title}}
+        {{slide.description}}
       </a>
     </li>
   </ul>
+
 </div>
