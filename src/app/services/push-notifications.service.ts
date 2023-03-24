@@ -5,7 +5,7 @@ import { Capacitor } from '@capacitor/core';
 import { ActionPerformed, PushNotifications, PushNotificationSchema } from '@capacitor/push-notifications';
 
 import { StorageService } from './storage.service';
-import { USER_API } from '../providers/constants'
+import { FCM_API } from '../providers/constants'
 
 @Injectable({
   providedIn: 'root'
@@ -82,16 +82,23 @@ export class PushNotificationsService {
   private async sendTokenToServer(token: string) {
     let user = this.storeSvc.getUserData();
 
-    let body = JSON.stringify( token );
+    let body = JSON.stringify({ user_id: user.id, token });
     let headers = { 'content-type': 'application/json',
       'Accpet': 'application/json',
       'Authorization': 'Bearer ' + this.storeSvc.getAccessToken()
     };
 
-    this.http.patch(USER_API + '/' + user.id + '/fcm', body, { 'headers': headers }).subscribe(
+    // TODO: endpoint by user_id
+    // post or put ?? - no puedo saber el id del token ...
+    this.http.put(FCM_API + '/token/1', body, { 'headers': headers }).subscribe(
       (res: any) => {
         console.debug(res);
       }
-    )
+    );
+    // this.http.patch(USER_API + '/' + user.id + '/fcm', body, { 'headers': headers }).subscribe(
+    //   (res: any) => {
+    //     console.debug(res);
+    //   }
+    // )
   }
 }
