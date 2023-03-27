@@ -13,21 +13,23 @@
     <div class="d-flex align-items-center position-relative my-md-0 my-4">
       <div class="card mx-auto mb-4" style="margin-top: 100px; width: 100%;">
 
-        <div class="img-up-gradient d-md-none">
-          <img src="{{ getLinkPicture() }}">
+        <div class="d-md-none media-up" [class.media-up-gradient]="slide.media && slide.media.type !== 'video' || !slide.media">
+          <app-media [media]="slide.media"></app-media>
+          <!-- <img src="{{ getLinkPicture() }}"> -->
         </div>
 
           <div class="card-body">
             <div class="row">
 
               <div class="d-none d-md-block col-3">
-                <div class="img-left-gradient">
-                  <img src="{{ getLinkPicture() }}">
+                <div class="media-left" [class.media-left-gradient]="slide.media && slide.media.type !== 'video' || !slide.media">
+                  <app-media [media]="slide.media"></app-media>
+                  <!-- <img src="{{ getLinkPicture() }}"> -->
                 </div>
               </div>
 
               <div class="col mx-md-4 d-md-flex flex-md-column justify-content-center">
-
+              
                 <h5 class="card-title mb-3 fs-3 text-primary text-center"><u>{{ slide!.title }}</u></h5>
                 <!-- <p class="card-text mt-3" style="text-align: justify;">{{ slide!.content }} -->
                 <p class="card-text" style="text-align: justify;"

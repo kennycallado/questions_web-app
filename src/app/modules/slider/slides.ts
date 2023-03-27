@@ -4,8 +4,15 @@ export type Slide = {
   type?: string;
   description: string;
   content?: string[];
-  image?: string;
+  media?: Media;
   answer?: string;
+}
+
+export type Media = {
+  id: number;
+  name?: string;
+  type: string;
+  url: string;
 }
 
 export type SlidesGroup = {
@@ -36,7 +43,7 @@ const slides1: Slide[] = [
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed auctor, nisl eget ultricies ti',
       'Lorem ipsum dolor sit amet, qui minim labore adipisicing minim sint cillum sint consectetur cupidatat.'
     ],
-    image: '',
+    media: { id: 1, name: 'image', type: 'image', url: 'https://images.unsplash.com/photo-1517849845537-4d257902454a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=300&q=80' },
   },
   {
     id: 102,
@@ -44,7 +51,7 @@ const slides1: Slide[] = [
     type: 'content',
     description: 'description 2',
     content: ['Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed auctor, nisl eget ultricies tincidunt, nisl nisl aliquam nisl, eg'],
-    image: 'https://images.unsplash.com/photo-1517849845537-4d257902454a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=300&q=80',
+    media: { id: 2, name: 'video', type: 'video', url: 'ivukpkSMoYQ' }
   },
   {
     id: 103,
@@ -52,7 +59,6 @@ const slides1: Slide[] = [
     type: 'range',
     description: 'description 3',
     content: ['blabla', 'How often do you feel confident in your ability to achieve your goals?'],
-    image: '',
   },
   {
     id: 104,
@@ -60,7 +66,6 @@ const slides1: Slide[] = [
     type: 'range',
     description: 'description 4',
     content: ['How often do you feel capable of successfully overcoming challenges?'],
-    image: '',
   },
   {
     id: 105,
@@ -68,7 +73,7 @@ const slides1: Slide[] = [
     type: 'range',
     description: 'description 5',
     content: ['How often do you feel you are able to make wise decisions?'],
-    image: '',
+    media: { id: 3, name: 'video', type: 'video', url: 'hfsD4ZT5mAw' },
   },
 ]
 
@@ -79,7 +84,7 @@ const slides2: Slide[] = [
     type: 'range',
     description: 'description 1',
     content: ['Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed auctor, nisl eget ultricies ti'],
-    image: '',
+    media: { id: 1, name: 'video', type: 'video', url: 'FoMlSB6ftQg&list=PLIbLfYSA8ACNYCOaDWmj6EA1F1uS-pyVL' }
   },
   {
     id: 202,
@@ -87,7 +92,7 @@ const slides2: Slide[] = [
     type: 'content',
     description: 'description 2',
     content: ['Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed auctor, nisl eget ultricies tincidunt, nisl nisl aliquam nisl, eg'],
-    image: 'https://images.unsplash.com/photo-1517849845537-4d257902454a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=300&q=80',
+    media: { id: 2, name: 'image', type: 'image', url: 'https://images.unsplash.com/photo-1517849845537-4d257902454a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=300&q=80' },
   },
   {
     id: 203,
@@ -95,7 +100,6 @@ const slides2: Slide[] = [
     type: 'range',
     description: 'description 3',
     content: ['Bla bla bla?'],
-    image: '',
   },
   {
     id: 204,
@@ -103,7 +107,6 @@ const slides2: Slide[] = [
     type: 'range',
     description: 'description 4',
     content: ['How often do you feel you have the strength to stay resilient in difficult situations?'],
-    image: '',
   },
   {
     id: 205,
@@ -111,7 +114,6 @@ const slides2: Slide[] = [
     type: 'range',
     description: 'description 5',
     content: ['How often do you feel you have the power to make positive changes in your life?'],
-    image: '',
   },
 ]
 

@@ -4,30 +4,31 @@ import {AfterViewInit, Component, Input, CUSTOM_ELEMENTS_SCHEMA, ViewEncapsulati
 import {CommonModule} from '@angular/common';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 
-import { DEFAULT_PICTURE } from 'src/app/providers/constants';
+import { DEFAULT_PICTURE_URL } from 'src/app/providers/constants';
 
 import { Slide, slidesList } from '../../slides';
 import { InputComponent } from '../input/input.component';
+import { MediaComponent } from '../media/media.component';
 
 @Component({
+  standalone: true,
   selector: 'app-slide',
   templateUrl: './slide.component.html',
-  standalone: true,
+  styleUrls: ['./slide.component.scss'],
   encapsulation: ViewEncapsulation.None,
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
-  styleUrls: ['./slide.component.scss'],
-  imports: [CommonModule, InputComponent],
+  imports: [CommonModule, InputComponent, MediaComponent],
 })
 export class SlideComponent implements AfterViewInit {
 
   @Input() slides: Slide[] = [];
 
-  slide: Slide | undefined;
   // answer: string = '';
+  slide: Slide | undefined;
   answerText: string = '';
 
   timeStamp: number = Date.now();
-  DEFAULT_PICTURE: string = DEFAULT_PICTURE;
+  DEFAULT_PICTURE: string = DEFAULT_PICTURE_URL;
 
   constructor(private route: ActivatedRoute) { }
 
@@ -124,8 +125,10 @@ export class SlideComponent implements AfterViewInit {
   }
 
   getLinkPicture() {
-    if (this.slide!.image) {
-      return this.slide!.image;
+    if (this.slide!.media && this.slide!.media.type === 'image') {
+    // if (this.slide!.media && this.slide!.media.url ) {
+      // return this.slide!.image;
+      return this.slide!.media.url;
     }
 
     return this.DEFAULT_PICTURE + '?' + this.timeStamp;
