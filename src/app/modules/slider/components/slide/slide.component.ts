@@ -23,7 +23,8 @@ export class SlideComponent implements AfterViewInit {
   @Input() slides: Slide[] = [];
 
   slide: Slide | undefined;
-  answer?: string;
+  // answer: string = '';
+  answerText: string = '';
 
   timeStamp: number = Date.now();
   DEFAULT_PICTURE: string = DEFAULT_PICTURE;
@@ -31,50 +32,92 @@ export class SlideComponent implements AfterViewInit {
   constructor(private route: ActivatedRoute) { }
 
   submit() {
-    if (!this.answer) {
+    // if (!this.slide!.answer && this.slide!.answer === '') {
+    console.log(this.slide!.answer);
+    if (!this.slide!.answer || this.slide!.answer === '') {
       alert('Debes introducir un valor para poder continuar');
+    } else {
+      // Save to continue
+      // Inject next group of slides
     }
-    // Save to continue
+    return ;
   }
 
   changeAnswer(answer: string) {
     switch (answer) {
       case '0':
-        this.answer = 'Nada';
+        this.answerText = 'N/C';
         break;
       case '1':
-        this.answer = 'Poco';
+        this.answerText = 'Nada';
         break;
       case '2':
-        this.answer = 'Medio';
+        this.answerText = 'Poco';
         break;
       case '3':
-        this.answer = 'Bastante';
+        this.answerText = 'Medio';
         break;
       case '4':
-        this.answer = 'Mucho';
+        this.answerText = 'Bastante';
         break;
       case '5':
-        this.answer = 'Totalmente';
+        this.answerText = 'Mucho';
+        break;
+      case '6':
+        this.answerText = 'Totalmente';
         break;
     }
+
+    if (answer === '0') {
+      this.slide!.answer = '';
+      return ;
+    }
+
+    this.slide!.answer = answer;
+    return ;
   }
 
-  next() {
-    let index = this.slides.indexOf(this.slide!);
+  next(event?: string) {
+    // Prevent to run twice
+    if (!event) {
+      return ;
+    }
 
+    // Clear the answer text
+    this.answerText = '';
+
+    // Determinete the next slide
+    let index = this.slides.indexOf(this.slide!);
     if (index < this.slides.length - 1) {
       this.slide = this.slides[index + 1];
+    }
+
+    // If the slide has an answer, set it
+    if (this.slide!.answer && this.slide!.answer !== '') {
+      this.changeAnswer(this.slide!.answer);
     }
 
     this.setLinkPicture(this.DEFAULT_PICTURE);
   }
 
-  prev() {
-    let index = this.slides.indexOf(this.slide!);
+  prev(event?: string) {
+    // Prevent to run twice
+    if (!event) { 
+      return ;
+    }
 
+    // Clear the answer text
+    this.answerText = '';
+
+    // Determinete the prev slide
+    let index = this.slides.indexOf(this.slide!);
     if (index > 0) {
       this.slide = this.slides[index - 1];
+    }
+
+    // If the slide has an answer, set it
+    if (this.slide!.answer && this.slide!.answer !== '') {
+      this.changeAnswer(this.slide!.answer);
     }
 
     this.setLinkPicture(this.DEFAULT_PICTURE);

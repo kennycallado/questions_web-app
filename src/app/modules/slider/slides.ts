@@ -5,6 +5,7 @@ export type Slide = {
   description: string;
   content?: string[];
   image?: string;
+  answer?: string;
 }
 
 export type SlidesGroup = {
@@ -31,7 +32,10 @@ const slides1: Slide[] = [
     title: 'Slide 1',
     type: 'content',
     description: 'description 1',
-    content: ['Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed auctor, nisl eget ultricies ti'],
+    content: [
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed auctor, nisl eget ultricies ti',
+      'Lorem ipsum dolor sit amet, qui minim labore adipisicing minim sint cillum sint consectetur cupidatat.'
+    ],
     image: '',
   },
   {
@@ -47,7 +51,7 @@ const slides1: Slide[] = [
     title: 'Slide 3',
     type: 'range',
     description: 'description 3',
-    content: ['How often do you feel confident in your ability to achieve your goals?'],
+    content: ['blabla', 'How often do you feel confident in your ability to achieve your goals?'],
     image: '',
   },
   {
