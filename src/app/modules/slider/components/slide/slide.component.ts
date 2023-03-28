@@ -2,7 +2,7 @@ import { register } from 'swiper/element/bundle'
 
 import { AfterViewInit, Component, Input, CUSTOM_ELEMENTS_SCHEMA, ViewEncapsulation } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ActivatedRoute, ParamMap } from '@angular/router';
+import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 
 import { DEFAULT_PICTURE_URL } from 'src/app/providers/constants';
 
@@ -32,18 +32,38 @@ export class SlideComponent implements AfterViewInit {
 
   allowSlideNext: boolean = true;
 
-  constructor(private route: ActivatedRoute) { }
+  isCompleted: boolean = false;
+  reachedEnd: boolean = false;
+
+  constructor(private route: ActivatedRoute, private router: Router) { }
+
+  reachEnd() {
+    this.reachedEnd = true;
+    this.checkCompleted();
+  }
+
+  checkCompleted() {
+    // check all the slides differents to content have an answer
+    return this.slides.filter(s => s.type !== 'content').every(s => s.answer && s.answer !== '');
+  }
+
+  submitAndExit() {
+    // Send to the server
+    
+    // Mark the slides as completed
+    
+    // Go to the slider
+    this.router.navigate(['/slider']);
+  } 
 
   submit() {
-    // if (!this.slide!.answer && this.slide!.answer === '') {
-    console.log(this.slide!.answer);
     if (!this.slide!.answer || this.slide!.answer === '') {
       alert('Debes introducir un valor para poder continuar');
     } else {
       this.allowSlideNext = true;
-      // Save to continue
-      // Inject next group of slides
     }
+
+    this.checkCompleted();
     return ;
   }
 
@@ -78,6 +98,8 @@ export class SlideComponent implements AfterViewInit {
     }
 
     this.slide!.answer = answer;
+    this.submit(); // not sure the side effects
+
     return ;
   }
 
