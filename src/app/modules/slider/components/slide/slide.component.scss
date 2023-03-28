@@ -38,11 +38,15 @@ img, youtube-player  {
   background-image: linear-gradient(147deg, rgba(0,212,255,0.5) 0%, rgba(2,0,36,0.5) 74%);
   /* backdrop-filter: blur(4px); */
 }
+.media-up-gradient:hover:after {
+  content: none;
+}
 
 .media-up-gradient:hover {
   cursor: pointer;
-  transform: scale(1.1);
-  transition: all .5s ease;
+  transform: scale(1.5) translateY(50px);
+  /* transition: all 1.5s ease; */
+  transition: all 1.5s ease;
 }
 
 .media-left {
