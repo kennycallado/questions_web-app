@@ -1,12 +1,13 @@
 import { register } from 'swiper/element/bundle'
 
-import {AfterViewInit, Component, Input, CUSTOM_ELEMENTS_SCHEMA, ViewEncapsulation} from '@angular/core';
-import {CommonModule} from '@angular/common';
+import { AfterViewInit, Component, Input, CUSTOM_ELEMENTS_SCHEMA, ViewEncapsulation } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 
 import { DEFAULT_PICTURE_URL } from 'src/app/providers/constants';
 
 import { Slide, slidesList } from '../../slides';
+
 import { InputComponent } from '../input/input.component';
 import { MediaComponent } from '../media/media.component';
 
@@ -23,12 +24,13 @@ export class SlideComponent implements AfterViewInit {
 
   @Input() slides: Slide[] = [];
 
-  // answer: string = '';
   slide: Slide | undefined;
   answerText: string = '';
 
   timeStamp: number = Date.now();
   DEFAULT_PICTURE: string = DEFAULT_PICTURE_URL;
+
+  allowSlideNext: boolean = true;
 
   constructor(private route: ActivatedRoute) { }
 
@@ -38,6 +40,7 @@ export class SlideComponent implements AfterViewInit {
     if (!this.slide!.answer || this.slide!.answer === '') {
       alert('Debes introducir un valor para poder continuar');
     } else {
+      this.allowSlideNext = true;
       // Save to continue
       // Inject next group of slides
     }
@@ -99,6 +102,12 @@ export class SlideComponent implements AfterViewInit {
     }
 
     this.setLinkPicture(this.DEFAULT_PICTURE);
+
+    if (this.slide!.type !== 'content' && !this.slide!.answer) {
+      this.allowSlideNext = false;
+    }
+
+    return ;
   }
 
   prev(event?: string) {
@@ -119,6 +128,10 @@ export class SlideComponent implements AfterViewInit {
     // If the slide has an answer, set it
     if (this.slide!.answer && this.slide!.answer !== '') {
       this.changeAnswer(this.slide!.answer);
+    }
+
+    if (this.slide!.type === 'content' || this.slide!.answer) {
+      this.allowSlideNext = true;
     }
 
     this.setLinkPicture(this.DEFAULT_PICTURE);

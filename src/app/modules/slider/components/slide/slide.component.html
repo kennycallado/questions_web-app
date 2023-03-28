@@ -1,13 +1,14 @@
 <swiper-container class="overflow-visible"
   loop="false"
-  slides-perView="1"
+  [attr.allow-slide-next]="allowSlideNext"
+  slides-per-view="1"
   space-between="100"
   navigation="true"
   navigation-next-el=".next-slide"
   navigation-prev-el=".prev-slide"
   (slidenexttransitionstart)="next('transition')"
   (slideprevtransitionstart)="prev('transition')"
-  >
+  #swiper>
   <swiper-slide *ngFor="let slide of slides">
 
     <div class="d-flex align-items-center position-relative my-md-0 my-4">
