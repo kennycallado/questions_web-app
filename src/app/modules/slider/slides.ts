@@ -84,7 +84,6 @@ const slides2: Slide[] = [
     type: 'range',
     description: 'description 1',
     content: ['Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed auctor, nisl eget ultricies ti'],
-    media: { id: 1, name: 'video', type: 'video', url: 'FoMlSB6ftQg&list=PLIbLfYSA8ACNYCOaDWmj6EA1F1uS-pyVL' }
   },
   {
     id: 202,
@@ -100,6 +99,7 @@ const slides2: Slide[] = [
     type: 'range',
     description: 'description 3',
     content: ['Bla bla bla?'],
+    media: { id: 1, name: 'video', type: 'video', url: 'FoMlSB6ftQg&list=PLIbLfYSA8ACNYCOaDWmj6EA1F1uS-pyVL' }
   },
   {
     id: 204,
@@ -117,6 +117,16 @@ const slides2: Slide[] = [
   },
 ]
 
+const slides3: Slide[] = [
+  {
+    id: 301,
+    title: 'Slide 1',
+    type: 'range',
+    description: 'description 1',
+    content: ['Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed auctor, nisl eget ultricies ti'],
+  }
+]
+
 export const slidesList: Slides = {
   slidesGroup: [
     {
@@ -128,6 +138,11 @@ export const slidesList: Slides = {
       id: 2,
       description: 'Group 2',
       slides: slides2,
+    },
+    {
+      id: 3,
+      description: 'Group 3',
+      slides: slides3,
     },
   ]
 }
