@@ -1,5 +1,14 @@
 version: "3.1"
 
+# Replace secret_key:
+# :redir @* | !openssl rand -base64 32 | tr -d '\n' | xclip -selection clipboard
+# 11,$s/SECRET_KEY=""/SECRET_KEY=""
+# 11,$s/SECRET_KEY="*.*"/SECRET_KEY=""
+#
+# Replace all the database credentials
+# 9s/entity/webapp/g
+# 11,$s/base:base@database\/base/webapp:webapp@database\/webapp/g
+
 services:
   database:
     image: postgres:13-alpine
@@ -8,13 +17,68 @@ services:
     expose:
       - "5432:5432"
     environment:
-      POSTGRES_DB: base
-      POSTGRES_USER: base
-      POSTGRES_PASSWORD: base
-    command: [ "docker-entrypoint.sh", "-c", "wal_level=logical" ]
+      POSTGRES_DB: webapp
+      POSTGRES_USER: webapp
+      POSTGRES_PASSWORD: webapp
+    command: [ "docker-entrypoint.sh", "-c", "wal_level=logical", "-c", "max_connections=300" ]
 
+# {{{ fcm
+  fcm_api:
+    image: kennycallado/q-api-fcm:latest
+    ports:
+      - "8005:8000"
+    expose:
+      - "8005:8000"
+    environment:
+      - ROCKET_ADDRESS="0.0.0.0"
+      - ROCKET_PORT=8000
+      - ROCKET_SECRET_KEY=""
+      - ROCKET_MIGRATIONS_RUN=true
+      - ROCKET_DATABASES={questions={url="postgres://webapp:webapp@database/webapp"}}
+    depends_on:
+      - database
+# }}}
+
+# {{{ profiles - users - auth
+  # {{{ profiles
+  profiles_api:
+    image: kennycallado/q-api-profiles:latest
+    ports:
+      - "8001:8000"
+    expose:
+      - "8001:8000"
+    environment:
+      - ROCKET_ADDRESS="0.0.0.0"
+      - ROCKET_PORT=8000
+      - ROCKET_SECRET_KEY=""
+      - ROCKET_MIGRATIONS_RUN=true
+      - ROCKET_DATABASES={questions={url="postgres://webapp:webapp@database/webapp"}}
+    depends_on:
+      - database
+      - fcm_api
+  # }}}
+
+  # {{{ users
+  users_api:
+    image: kennycallado/q-api-users:latest
+    ports:
+      - "8002:8000"
+    expose:
+      - "8002:8000"
+    environment:
+      - ROCKET_ADDRESS="0.0.0.0"
+      - ROCKET_PORT=8000
+      - ROCKET_SECRET_KEY=""
+      - ROCKET_MIGRATIONS_RUN=true
+      - ROCKET_DATABASES={questions={url="postgres://webapp:webapp@database/webapp"}}
+    depends_on:
+      - database
+      - profiles_api
+  # }}}
+
+  # {{{ auth
   auth_api:
-    image: kennycallado/q-api-auth:0.1.0
+    image: kennycallado/q-api-auth:latest
     # extra_hosts:
     #   - "host.docker.internal:host-gateway"
     ports:
@@ -24,42 +88,11 @@ services:
     environment:
       - ROCKET_ADDRESS="0.0.0.0"
       - ROCKET_PORT=8000
+      - ROCKET_SECRET_KEY=""
       - ROCKET_PROFILE_URL="http://profiles_api:8000/api/v1/profile"
       - ROCKET_USER_URL="http://users_api:8000/api/v1/user"
-      - ROCKET_SECRET_KEY=""
     depends_on:
       - users_api
       - profiles_api
-
-  profiles_api:
-    image: kennycallado/q-api-profiles:latest
-    ports:
-      - "8001:8000"
-    expose:
-      - "8001:8000"
-    environment:
-      - ROCKET_DATABASES={questions={url="postgres://base:base@database/base"}}
-      - ROCKET_ADDRESS="0.0.0.0"
-      - ROCKET_PORT=8000
-      - ROCKET_MIGRATIONS_RUN=true
-      - ROCKET_SECRET_KEY=""
-      - ROCKET_USER_URL="http://users_api:8000/api/v1/user"
-    depends_on:
-      - database
-
-  users_api:
-    image: kennycallado/q-api-users:latest
-    ports:
-      - "8002:8000"
-    expose:
-      - "8002:8000"
-    environment:
-      - ROCKET_DATABASES={questions={url="postgres://base:base@database/base"}}
-      - ROCKET_ADDRESS="0.0.0.0"
-      - ROCKET_PORT=8000
-      - ROCKET_MIGRATIONS_RUN=true
-      - ROCKET_SECRET_KEY=""
-      - ROCKET_PROFILE_URL="http://profiles_api:8000/api/v1/profile"
-    depends_on:
-      - database
-      - profiles_api # that was important for the migrations
+  # }}}
+# }}}
