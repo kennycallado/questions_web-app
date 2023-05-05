@@ -18,7 +18,7 @@ export class PushNotificationsService {
     if (Capacitor.getPlatform() !== 'web') {
       if (this.storeSvc.get('token') === null) {
         this.requestPermission();
-      } 
+      }
 
       this.pushListener();
     }
@@ -83,14 +83,15 @@ export class PushNotificationsService {
     let user = this.storeSvc.getUserData();
 
     let body = JSON.stringify({ user_id: user.id, token });
-    let headers = { 'content-type': 'application/json',
+    let headers = {
+      'content-type': 'application/json',
       'Accpet': 'application/json',
       'Authorization': 'Bearer ' + this.storeSvc.getAccessToken()
     };
 
     // TODO: endpoint by user_id
     // post or put ?? - no puedo saber el id del token ...
-    this.http.put(FCM_API + '/token/1', body, { 'headers': headers }).subscribe(
+    this.http.put(`${FCM_API}/token/${user.id}/user`, body, { 'headers': headers }).subscribe(
       (res: any) => {
         console.debug(res);
       }
