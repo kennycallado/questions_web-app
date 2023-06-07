@@ -1,6 +1,5 @@
 #!/bin/bash
 
-
 platforms=("linux/amd64" "linux/arm64" "linux/arm/v7" "linux/arm/v6")
 package_name=$(jq -r '.name' package.json)
 package_version=$(jq -r '.version' package.json)
@@ -12,6 +11,7 @@ npm run build
 
 # Sync capacitor
 echo "Syncing capacitor..."
+npx cap add android
 npx cap sync
 
 # Build the android app
