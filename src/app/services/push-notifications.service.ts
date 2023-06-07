@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 
 import { Capacitor } from '@capacitor/core';
 import { ActionPerformed, PushNotifications, PushNotificationSchema } from '@capacitor/push-notifications';
+import { LocalNotifications, LocalNotificationSchema } from '@capacitor/local-notifications';
 
 import { StorageService } from './storage.service';
 import { FCM_API } from '../providers/constants'
@@ -20,8 +21,29 @@ export class PushNotificationsService {
         this.requestPermission();
       }
 
+      this.localListener();
+
       this.pushListener();
     }
+  }
+
+  localListener() {
+    LocalNotifications.addListener('localNotificationReceived',
+      (notification: LocalNotificationSchema ) => {
+        if (notification.schedule?.count) {
+          notification.schedule.count = notification.schedule.count - 1;
+        } else if (notification.schedule?.count === 0) {
+          LocalNotifications.cancel({ notifications: [notification] });
+        }
+
+        alert('Notification received: ' + JSON.stringify(notification));
+      });
+
+    // LocalNotifications.addListener('localNotificationActionPerformed',
+    //   (notification: any) => {
+    //     alert('Notification performed: ' + JSON.stringify(notification));
+    //   });
+
   }
 
   private requestPermission() {
