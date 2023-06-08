@@ -111,17 +111,10 @@ export class PushNotificationsService {
       'Authorization': 'Bearer ' + this.storeSvc.getAccessToken()
     };
 
-    // TODO: endpoint by user_id
-    // post or put ?? - no puedo saber el id del token ...
     this.http.put(`${FCM_API}/token/${user.id}/user`, body, { 'headers': headers }).subscribe(
       (res: any) => {
-        console.debug(res);
+        console.debug("blah: " + JSON.stringify({ res }));
       }
     );
-    // this.http.patch(USER_API + '/' + user.id + '/fcm', body, { 'headers': headers }).subscribe(
-    //   (res: any) => {
-    //     console.debug(res);
-    //   }
-    // )
   }
 }

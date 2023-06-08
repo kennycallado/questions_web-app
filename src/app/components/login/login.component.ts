@@ -18,7 +18,7 @@ export class LoginComponent {
 
   submit(user_token: HTMLInputElement) {
     this.authSvc.login(user_token.value).subscribe(
-      (auth_user: AuthUser) => { 
+      (auth_user: AuthUser) => {
         this.storageSvc.setUserData(auth_user.user);
         this.storageSvc.setAccessToken(auth_user.access_token);
 
