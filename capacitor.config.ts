@@ -4,12 +4,16 @@ const config: CapacitorConfig = {
   appId: 'dev.kennycallado',
   appName: 'questions-app',
   webDir: 'dist',
-  bundledWebRuntime: false,
   plugins: {
     PushNotifications: {
       presentationOptions: ["badge", "sound", "alert"]
     }
-  }
+  },
+  server: {
+    androidScheme: 'https',
+    iosScheme: 'https',
+    hostname: 'questions.kennycallado.dev/app',
+  },
 };
 
 export default config;
