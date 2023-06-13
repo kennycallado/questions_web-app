@@ -78,8 +78,6 @@ services:
   # {{{ auth
   auth_api:
     image: kennycallado/q-api-auth:latest
-    # extra_hosts:
-    #   - "host.docker.internal:host-gateway"
     ports:
       - "8003:8000"
     expose:
