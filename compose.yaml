@@ -1,12 +1,13 @@
 version: "3.1"
 
+# :redir @* | !openssl rand -base64 32 | tr -d '\n' | xclip -selection clipboard
 # Replace secret_key:
 # 11,$s/SECRET_KEY=""/SECRET_KEY=""
 # 11,$s/SECRET_KEY="*.*"/SECRET_KEY=""
 #
 # Replace all the database credentials
-# 9s/entity/<...>/g
-# 11,$s/base:base@database\/base/entity:entity@database\/entity/g
+# 10s/entity/<...>/g
+# 12,$s/base:base@database\/base/entity:entity@database\/entity/g
 
 services:
   database:
