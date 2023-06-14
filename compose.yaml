@@ -1,15 +1,12 @@
 version: "3.1"
 
 # Replace secret_key:
-# :redir @* | !openssl rand -base64 32 | tr -d '\n' | xclip -selection clipboard
 # 11,$s/SECRET_KEY=""/SECRET_KEY=""
 # 11,$s/SECRET_KEY="*.*"/SECRET_KEY=""
 #
 # Replace all the database credentials
-# 9s/entity/webapp/g
-# 11,$s/base:base@database\/base/webapp:webapp@database\/webapp/g
-#
-# Script to seed the database
+# 9s/entity/<...>/g
+# 11,$s/base:base@database\/base/entity:entity@database\/entity/g
 
 services:
   database:
@@ -19,9 +16,9 @@ services:
     expose:
       - "5432:5432"
     environment:
-      POSTGRES_DB: webapp
-      POSTGRES_USER: webapp
-      POSTGRES_PASSWORD: webapp
+      POSTGRES_DB: base
+      POSTGRES_USER: base
+      POSTGRES_PASSWORD: base
     command: [ "docker-entrypoint.sh", "-c", "wal_level=logical", "-c", "max_connections=300" ]
 
 # {{{ fcm
@@ -35,7 +32,20 @@ services:
       - ROCKET_ADDRESS="0.0.0.0"
       - ROCKET_PORT=8000
       - ROCKET_SECRET_KEY=""
-      - ROCKET_DATABASES={questions={url="postgres://webapp:webapp@database/webapp"}}
+      - ROCKET_DATABASES={questions={url="postgres://base:base@database/base"}}
+
+      - ROCKET_PROFILE_URL="http://profiles_api:8000/api/v1/profile/"
+      - ROCKET_USER_URL="http://users_api:8000/api/v1/user/"
+      - ROCKET_AUTH_URL="http://auth_api:8000/"
+      - ROCKET_FCM_URL="http://fcm_api:8000/api/v1/fcm/"
+      - ROCKET_QUESTION_URL="http://questions_api:8000/api/v1/question/"
+      - ROCKET_ANSWER_URL="http://answers_api:8000/api/v1/answer/"
+      - ROCKET_SLIDE_URL="http://slides_api:8000/api/v1/slide/"
+      - ROCKET_RESOURCE_URL="http://slides_api:8000/api/v1/resource/"
+      - ROCKET_PAPER_URL="http://papers_api:8000/api/v1/paper/"
+      - ROCKET_LOGIC_URL="http://logics_api:8000/api/v1/logic/"
+      - ROCKET_CHECKER_URL="http://checker_api:3000/checker/"
+      - ROCKET_PROJECT_URL="http://projects_api:8000/api/v1/project/"
     depends_on:
       - database
 # }}}
@@ -52,7 +62,20 @@ services:
       - ROCKET_ADDRESS="0.0.0.0"
       - ROCKET_PORT=8000
       - ROCKET_SECRET_KEY=""
-      - ROCKET_DATABASES={questions={url="postgres://webapp:webapp@database/webapp"}}
+      - ROCKET_DATABASES={questions={url="postgres://base:base@database/base"}}
+
+      - ROCKET_PROFILE_URL="http://profiles_api:8000/api/v1/profile/"
+      - ROCKET_USER_URL="http://users_api:8000/api/v1/user/"
+      - ROCKET_AUTH_URL="http://auth_api:8000/"
+      - ROCKET_FCM_URL="http://fcm_api:8000/api/v1/fcm/"
+      - ROCKET_QUESTION_URL="http://questions_api:8000/api/v1/question/"
+      - ROCKET_ANSWER_URL="http://answers_api:8000/api/v1/answer/"
+      - ROCKET_SLIDE_URL="http://slides_api:8000/api/v1/slide/"
+      - ROCKET_RESOURCE_URL="http://slides_api:8000/api/v1/resource/"
+      - ROCKET_PAPER_URL="http://papers_api:8000/api/v1/paper/"
+      - ROCKET_LOGIC_URL="http://logics_api:8000/api/v1/logic/"
+      - ROCKET_CHECKER_URL="http://checker_api:3000/checker/"
+      - ROCKET_PROJECT_URL="http://projects_api:8000/api/v1/project/"
     depends_on:
       - database
   # }}}
@@ -68,9 +91,20 @@ services:
       - ROCKET_ADDRESS="0.0.0.0"
       - ROCKET_PORT=8000
       - ROCKET_SECRET_KEY=""
-      - ROCKET_DATABASES={questions={url="postgres://webapp:webapp@database/webapp"}}
-      - ROCKET_PROJECT_URL="http://projects_api:8000/api/v1/user"
+      - ROCKET_DATABASES={questions={url="postgres://base:base@database/base"}}
+
+      - ROCKET_PROFILE_URL="http://profiles_api:8000/api/v1/profile/"
+      - ROCKET_USER_URL="http://users_api:8000/api/v1/user/"
+      - ROCKET_AUTH_URL="http://auth_api:8000/"
       - ROCKET_FCM_URL="http://fcm_api:8000/api/v1/fcm/"
+      - ROCKET_QUESTION_URL="http://questions_api:8000/api/v1/question/"
+      - ROCKET_ANSWER_URL="http://answers_api:8000/api/v1/answer/"
+      - ROCKET_SLIDE_URL="http://slides_api:8000/api/v1/slide/"
+      - ROCKET_RESOURCE_URL="http://slides_api:8000/api/v1/resource/"
+      - ROCKET_PAPER_URL="http://papers_api:8000/api/v1/paper/"
+      - ROCKET_LOGIC_URL="http://logics_api:8000/api/v1/logic/"
+      - ROCKET_CHECKER_URL="http://checker_api:3000/checker/"
+      - ROCKET_PROJECT_URL="http://projects_api:8000/api/v1/project/"
     depends_on:
       - database
   # }}}
@@ -78,6 +112,8 @@ services:
   # {{{ auth
   auth_api:
     image: kennycallado/q-api-auth:latest
+    # extra_hosts:
+    #   - "host.docker.internal:host-gateway"
     ports:
       - "8003:8000"
     expose:
@@ -86,7 +122,7 @@ services:
       - ROCKET_ADDRESS="0.0.0.0"
       - ROCKET_PORT=8000
       - ROCKET_SECRET_KEY=""
-      - ROCKET_PROFILE_URL="http://profiles_api:8000/api/v1/profile"
+      - ROCKET_PROFILE_URL="http://profiles_api:8000/api/v1/profile/"
       - ROCKET_USER_URL="http://users_api:8000/api/v1/user/"
     depends_on:
       - users_api
@@ -105,7 +141,20 @@ services:
       - ROCKET_ADDRESS="0.0.0.0"
       - ROCKET_PORT=8000
       - ROCKET_SECRET_KEY=""
-      - ROCKET_DATABASES={questions={url="postgres://webapp:webapp@database/webapp"}}
+      - ROCKET_DATABASES={questions={url="postgres://base:base@database/base"}}
+
+      - ROCKET_PROFILE_URL="http://profiles_api:8000/api/v1/profile/"
+      - ROCKET_USER_URL="http://users_api:8000/api/v1/user/"
+      - ROCKET_AUTH_URL="http://auth_api:8000/"
+      - ROCKET_FCM_URL="http://fcm_api:8000/api/v1/fcm/"
+      - ROCKET_QUESTION_URL="http://questions_api:8000/api/v1/question/"
+      - ROCKET_ANSWER_URL="http://answers_api:8000/api/v1/answer/"
+      - ROCKET_SLIDE_URL="http://slides_api:8000/api/v1/slide/"
+      - ROCKET_RESOURCE_URL="http://slides_api:8000/api/v1/resource/"
+      - ROCKET_PAPER_URL="http://papers_api:8000/api/v1/paper/"
+      - ROCKET_LOGIC_URL="http://logics_api:8000/api/v1/logic/"
+      - ROCKET_CHECKER_URL="http://checker_api:3000/checker/"
+      - ROCKET_PROJECT_URL="http://projects_api:8000/api/v1/project/"
     depends_on:
       - users_api
   # }}}
@@ -121,7 +170,20 @@ services:
       - ROCKET_ADDRESS="0.0.0.0"
       - ROCKET_PORT=8000
       - ROCKET_SECRET_KEY=""
-      - ROCKET_DATABASES={questions={url="postgres://webapp:webapp@database/webapp"}}
+      - ROCKET_DATABASES={questions={url="postgres://base:base@database/base"}}
+
+      - ROCKET_PROFILE_URL="http://profiles_api:8000/api/v1/profile/"
+      - ROCKET_USER_URL="http://users_api:8000/api/v1/user/"
+      - ROCKET_AUTH_URL="http://auth_api:8000/"
+      - ROCKET_FCM_URL="http://fcm_api:8000/api/v1/fcm/"
+      - ROCKET_QUESTION_URL="http://questions_api:8000/api/v1/question/"
+      - ROCKET_ANSWER_URL="http://answers_api:8000/api/v1/answer/"
+      - ROCKET_SLIDE_URL="http://slides_api:8000/api/v1/slide/"
+      - ROCKET_RESOURCE_URL="http://slides_api:8000/api/v1/resource/"
+      - ROCKET_PAPER_URL="http://papers_api:8000/api/v1/paper/"
+      - ROCKET_LOGIC_URL="http://logics_api:8000/api/v1/logic/"
+      - ROCKET_CHECKER_URL="http://checker_api:3000/checker/"
+      - ROCKET_PROJECT_URL="http://projects_api:8000/api/v1/project/"
     depends_on:
       - questions_api
   # }}}
@@ -139,8 +201,20 @@ services:
       - ROCKET_ADDRESS="0.0.0.0"
       - ROCKET_PORT=8000
       - ROCKET_SECRET_KEY=""
-      - ROCKET_DATABASES={questions={url="postgres://webapp:webapp@database/webapp"}}
-      - ROCKET_QUESTION_URL="http://questions_api:8000/api/v1/question"
+      - ROCKET_DATABASES={questions={url="postgres://base:base@database/base"}}
+
+      - ROCKET_PROFILE_URL="http://profiles_api:8000/api/v1/profile/"
+      - ROCKET_USER_URL="http://users_api:8000/api/v1/user/"
+      - ROCKET_AUTH_URL="http://auth_api:8000/"
+      - ROCKET_FCM_URL="http://fcm_api:8000/api/v1/fcm/"
+      - ROCKET_QUESTION_URL="http://questions_api:8000/api/v1/question/"
+      - ROCKET_ANSWER_URL="http://answers_api:8000/api/v1/answer/"
+      - ROCKET_SLIDE_URL="http://slides_api:8000/api/v1/slide/"
+      - ROCKET_RESOURCE_URL="http://slides_api:8000/api/v1/resource/"
+      - ROCKET_PAPER_URL="http://papers_api:8000/api/v1/paper/"
+      - ROCKET_LOGIC_URL="http://logics_api:8000/api/v1/logic/"
+      - ROCKET_CHECKER_URL="http://checker_api:3000/checker/"
+      - ROCKET_PROJECT_URL="http://projects_api:8000/api/v1/project/"
     depends_on:
       - questions_api
   # }}}
@@ -158,8 +232,20 @@ services:
       - ROCKET_ADDRESS="0.0.0.0"
       - ROCKET_PORT=8000
       - ROCKET_SECRET_KEY=""
-      - ROCKET_DATABASES={questions={url="postgres://webapp:webapp@database/webapp"}}
+      - ROCKET_DATABASES={questions={url="postgres://base:base@database/base"}}
+
+      - ROCKET_PROFILE_URL="http://profiles_api:8000/api/v1/profile/"
+      - ROCKET_USER_URL="http://users_api:8000/api/v1/user/"
+      - ROCKET_AUTH_URL="http://auth_api:8000/"
+      - ROCKET_FCM_URL="http://fcm_api:8000/api/v1/fcm/"
+      - ROCKET_QUESTION_URL="http://questions_api:8000/api/v1/question/"
+      - ROCKET_ANSWER_URL="http://answers_api:8000/api/v1/answer/"
       - ROCKET_SLIDE_URL="http://slides_api:8000/api/v1/slide/"
+      - ROCKET_RESOURCE_URL="http://slides_api:8000/api/v1/resource/"
+      - ROCKET_PAPER_URL="http://papers_api:8000/api/v1/paper/"
+      - ROCKET_LOGIC_URL="http://logics_api:8000/api/v1/logic/"
+      - ROCKET_CHECKER_URL="http://checker_api:3000/checker/"
+      - ROCKET_PROJECT_URL="http://projects_api:8000/api/v1/project/"
     depends_on:
       - slides_api
   # }}}
@@ -175,7 +261,20 @@ services:
       - ROCKET_ADDRESS="0.0.0.0"
       - ROCKET_PORT=8000
       - ROCKET_SECRET_KEY=""
-      - ROCKET_DATABASES={questions={url="postgres://webapp:webapp@database/webapp"}}
+      - ROCKET_DATABASES={questions={url="postgres://base:base@database/base"}}
+
+      - ROCKET_PROFILE_URL="http://profiles_api:8000/api/v1/profile/"
+      - ROCKET_USER_URL="http://users_api:8000/api/v1/user/"
+      - ROCKET_AUTH_URL="http://auth_api:8000/"
+      - ROCKET_FCM_URL="http://fcm_api:8000/api/v1/fcm/"
+      - ROCKET_QUESTION_URL="http://questions_api:8000/api/v1/question/"
+      - ROCKET_ANSWER_URL="http://answers_api:8000/api/v1/answer/"
+      - ROCKET_SLIDE_URL="http://slides_api:8000/api/v1/slide/"
+      - ROCKET_RESOURCE_URL="http://slides_api:8000/api/v1/resource/"
+      - ROCKET_PAPER_URL="http://papers_api:8000/api/v1/paper/"
+      - ROCKET_LOGIC_URL="http://logics_api:8000/api/v1/logic/"
+      - ROCKET_CHECKER_URL="http://checker_api:3000/checker/"
+      - ROCKET_PROJECT_URL="http://projects_api:8000/api/v1/project/"
     depends_on:
       - resources_api
   # }}}
@@ -189,6 +288,8 @@ services:
       - "3000:3000"
     expose:
       - "3000:3000"
+    volumes:
+      - scripts:/app/SCRIPTS
   # }}}
 
   # {{{ logics
@@ -198,12 +299,26 @@ services:
       - "8041:8000"
     expose:
       - "8041:8000"
+    volumes:
+      - scripts:/root/SCRIPTS
     environment:
       - ROCKET_ADDRESS="0.0.0.0"
       - ROCKET_PORT=8000
       - ROCKET_SECRET_KEY=""
-      - ROCKET_DATABASES={questions={url="postgres://webapp:webapp@database/webapp"}}
-      - ROCKET_CHECKER_URL="http://checker_api:3000/"
+      - ROCKET_DATABASES={questions={url="postgres://base:base@database/base"}}
+
+      - ROCKET_PROFILE_URL="http://profiles_api:8000/api/v1/profile/"
+      - ROCKET_USER_URL="http://users_api:8000/api/v1/user/"
+      - ROCKET_AUTH_URL="http://auth_api:8000/"
+      - ROCKET_FCM_URL="http://fcm_api:8000/api/v1/fcm/"
+      - ROCKET_QUESTION_URL="http://questions_api:8000/api/v1/question/"
+      - ROCKET_ANSWER_URL="http://answers_api:8000/api/v1/answer/"
+      - ROCKET_SLIDE_URL="http://slides_api:8000/api/v1/slide/"
+      - ROCKET_RESOURCE_URL="http://slides_api:8000/api/v1/resource/"
+      - ROCKET_PAPER_URL="http://papers_api:8000/api/v1/paper/"
+      - ROCKET_LOGIC_URL="http://logics_api:8000/api/v1/logic/"
+      - ROCKET_CHECKER_URL="http://checker_api:3000/checker/"
+      - ROCKET_PROJECT_URL="http://projects_api:8000/api/v1/project/"
     depends_on:
       - checker_api
       - projects_api
@@ -222,7 +337,23 @@ services:
       - ROCKET_ADDRESS="0.0.0.0"
       - ROCKET_PORT=8000
       - ROCKET_SECRET_KEY=""
-      - ROCKET_DATABASES={questions={url="postgres://webapp:webapp@database/webapp"}}
+      - ROCKET_DATABASES={questions={url="postgres://base:base@database/base"}}
+
+      - ROCKET_PROFILE_URL="http://profiles_api:8000/api/v1/profile/"
+      - ROCKET_USER_URL="http://users_api:8000/api/v1/user/"
+      - ROCKET_AUTH_URL="http://auth_api:8000/"
+      - ROCKET_FCM_URL="http://fcm_api:8000/api/v1/fcm/"
+      - ROCKET_QUESTION_URL="http://questions_api:8000/api/v1/question/"
+      - ROCKET_ANSWER_URL="http://answers_api:8000/api/v1/answer/"
+      - ROCKET_SLIDE_URL="http://slides_api:8000/api/v1/slide/"
+      - ROCKET_RESOURCE_URL="http://slides_api:8000/api/v1/resource/"
+      - ROCKET_PAPER_URL="http://papers_api:8000/api/v1/paper/"
+      - ROCKET_LOGIC_URL="http://logics_api:8000/api/v1/logic/"
+      - ROCKET_CHECKER_URL="http://checker_api:3000/checker/"
+      - ROCKET_PROJECT_URL="http://projects_api:8000/api/v1/project/"
     depends_on:
       - database
 # }}}
+
+volumes:
+  scripts:
