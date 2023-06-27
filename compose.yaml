@@ -33,7 +33,7 @@ services:
       - ROCKET_ADDRESS="0.0.0.0"
       - ROCKET_PORT=8000
       - ROCKET_SECRET_KEY=""
-      - ROCKET_DATABASES={questions={url="postgres://entity:entity@database/entity"}}
+      - ROCKET_DATABASES={questions={url="postgres://base:base@database/base"}}
 
       - ROCKET_PROFILE_URL="http://profiles_api:8000/api/v1/profile/"
       - ROCKET_USER_URL="http://users_api:8000/api/v1/user/"
@@ -63,7 +63,7 @@ services:
       - ROCKET_ADDRESS="0.0.0.0"
       - ROCKET_PORT=8000
       - ROCKET_SECRET_KEY=""
-      - ROCKET_DATABASES={questions={url="postgres://entity:entity@database/entity"}}
+      - ROCKET_DATABASES={questions={url="postgres://base:base@database/base"}}
 
       - ROCKET_PROFILE_URL="http://profiles_api:8000/api/v1/profile/"
       - ROCKET_USER_URL="http://users_api:8000/api/v1/user/"
@@ -92,7 +92,7 @@ services:
       - ROCKET_ADDRESS="0.0.0.0"
       - ROCKET_PORT=8000
       - ROCKET_SECRET_KEY=""
-      - ROCKET_DATABASES={questions={url="postgres://entity:entity@database/entity"}}
+      - ROCKET_DATABASES={questions={url="postgres://base:base@database/base"}}
 
       - ROCKET_PROFILE_URL="http://profiles_api:8000/api/v1/profile/"
       - ROCKET_USER_URL="http://users_api:8000/api/v1/user/"
@@ -142,7 +142,7 @@ services:
       - ROCKET_ADDRESS="0.0.0.0"
       - ROCKET_PORT=8000
       - ROCKET_SECRET_KEY=""
-      - ROCKET_DATABASES={questions={url="postgres://entity:entity@database/entity"}}
+      - ROCKET_DATABASES={questions={url="postgres://base:base@database/base"}}
 
       - ROCKET_PROFILE_URL="http://profiles_api:8000/api/v1/profile/"
       - ROCKET_USER_URL="http://users_api:8000/api/v1/user/"
@@ -171,7 +171,7 @@ services:
       - ROCKET_ADDRESS="0.0.0.0"
       - ROCKET_PORT=8000
       - ROCKET_SECRET_KEY=""
-      - ROCKET_DATABASES={questions={url="postgres://entity:entity@database/entity"}}
+      - ROCKET_DATABASES={questions={url="postgres://base:base@database/base"}}
 
       - ROCKET_PROFILE_URL="http://profiles_api:8000/api/v1/profile/"
       - ROCKET_USER_URL="http://users_api:8000/api/v1/user/"
@@ -202,7 +202,7 @@ services:
       - ROCKET_ADDRESS="0.0.0.0"
       - ROCKET_PORT=8000
       - ROCKET_SECRET_KEY=""
-      - ROCKET_DATABASES={questions={url="postgres://entity:entity@database/entity"}}
+      - ROCKET_DATABASES={questions={url="postgres://base:base@database/base"}}
 
       - ROCKET_PROFILE_URL="http://profiles_api:8000/api/v1/profile/"
       - ROCKET_USER_URL="http://users_api:8000/api/v1/user/"
@@ -233,7 +233,7 @@ services:
       - ROCKET_ADDRESS="0.0.0.0"
       - ROCKET_PORT=8000
       - ROCKET_SECRET_KEY=""
-      - ROCKET_DATABASES={questions={url="postgres://entity:entity@database/entity"}}
+      - ROCKET_DATABASES={questions={url="postgres://base:base@database/base"}}
 
       - ROCKET_PROFILE_URL="http://profiles_api:8000/api/v1/profile/"
       - ROCKET_USER_URL="http://users_api:8000/api/v1/user/"
@@ -262,7 +262,7 @@ services:
       - ROCKET_ADDRESS="0.0.0.0"
       - ROCKET_PORT=8000
       - ROCKET_SECRET_KEY=""
-      - ROCKET_DATABASES={questions={url="postgres://entity:entity@database/entity"}}
+      - ROCKET_DATABASES={questions={url="postgres://base:base@database/base"}}
 
       - ROCKET_PROFILE_URL="http://profiles_api:8000/api/v1/profile/"
       - ROCKET_USER_URL="http://users_api:8000/api/v1/user/"
@@ -306,7 +306,7 @@ services:
       - ROCKET_ADDRESS="0.0.0.0"
       - ROCKET_PORT=8000
       - ROCKET_SECRET_KEY=""
-      - ROCKET_DATABASES={questions={url="postgres://entity:entity@database/entity"}}
+      - ROCKET_DATABASES={questions={url="postgres://base:base@database/base"}}
 
       - ROCKET_PROFILE_URL="http://profiles_api:8000/api/v1/profile/"
       - ROCKET_USER_URL="http://users_api:8000/api/v1/user/"
@@ -333,7 +333,7 @@ services:
       - ROCKET_ADDRESS="0.0.0.0"
       - ROCKET_PORT=8000
       - ROCKET_SECRET_KEY=""
-      - ROCKET_DATABASES={questions={url="postgres://entity:entity@database/entity"}}
+      - ROCKET_DATABASES={questions={url="postgres://base:base@database/base"}}
 
       - ROCKET_PROFILE_URL="http://profiles_api:8000/api/v1/profile/"
       - ROCKET_USER_URL="http://users_api:8000/api/v1/user/"
@@ -366,7 +366,7 @@ services:
       - ROCKET_ADDRESS="0.0.0.0"
       - ROCKET_PORT=8000
       - ROCKET_SECRET_KEY=""
-      - ROCKET_DATABASES={questions={url="postgres://entity:entity@database/entity"}}
+      - ROCKET_DATABASES={questions={url="postgres://base:base@database/base"}}
 
       - ROCKET_PROFILE_URL="http://profiles_api:8000/api/v1/profile/"
       - ROCKET_USER_URL="http://users_api:8000/api/v1/user/"
@@ -395,7 +395,7 @@ services:
       - ROCKET_ADDRESS="0.0.0.0"
       - ROCKET_PORT=8000
       - ROCKET_SECRET_KEY=""
-      - ROCKET_DATABASES={questions={url="postgres://entity:entity@database/entity"}}
+      - ROCKET_DATABASES={questions={url="postgres://base:base@database/base"}}
 
       - ROCKET_PROFILE_URL="http://profiles_api:8000/api/v1/profile/"
       - ROCKET_USER_URL="http://users_api:8000/api/v1/user/"
